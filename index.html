@@ -9,84 +9,68 @@
     // Wait for Cordova to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
-
-    // Cordova is ready
-    //
-    function onDeviceReady() {
-         /*var ref = window.open('http://apache.org', '_blank', 'location=yes');
-         ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
-         ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
-         ref.addEventListener('exit', function() { alert(event.type); });
-		 */
-		 
-		// window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
-        //window.resolveLocalFileSystemURI("file:///pdf/poster.pdf", onResolveSuccess, fail);
-		
-		/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-		
-		function gotFS(fileSystem) {
-			alert('gotFS: '+fileSystem);
-        fileSystem.root.getFile("file:///pdf/poster.pdf", null, gotFileEntry, fail);
-    }
-
-    function gotFileEntry(fileEntry) {
-        fileEntry.file(gotFile, fail);
-    }
-
-    function gotFile(file){
-        readDataUrl(file);
-        readAsText(file);
-    }
-
-    function readDataUrl(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            alert("Read as data URL");
-            alert("readDataUrl: "+evt.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function readAsText(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            alert("Read as text");
-            alert("readAsText: "+evt.target.result);
-        };
-        reader.readAsText(file);
-    }
-
-    function fail(error) {
-        alert("Error: "+error.code);
-    }	
-	*/
+	 
+	 
 	
-			var fileTransfer = new FileTransfer();
-			fileTransfer.download(
-			"http://developer.android.com/assets/images/home/ics-android.png",
-			"file://sdcard/ics-android.png",
-			function(entry) {
-				alert("download complete: " + entry.fullPath);
-			},
-			function(error) {
-				alert("download error source " + error.source);
-				alert("download error target " + error.target);
-				alert("upload error code" + error.code);
-			});
+    function downloadFile(){
+        window.requestFileSystem(
+                     LocalFileSystem.PERSISTENT, 0, 
+                     function onFileSystemSuccess(fileSystem) {
+                     fileSystem.root.getFile(
+                                 "dummy.html", {create: true, exclusive: false}, 
+                                 function gotFileEntry(fileEntry){
+                                 var sPath = fileEntry.fullPath.replace("dummy.html","");
+                                 var fileTransfer = new FileTransfer();
+                                 fileEntry.remove();
+ 
+                                 fileTransfer.download(
+                                           "http://www.eventoacr.com.br/pdf/poster.pdf",
+                                           sPath + "poster.pdf",
+                                           function(theFile) {
+                                           alert("download complete: " + theFile.toURI());
+                                           showLink(theFile.toURI());
+                                           },
+                                           function(error) {
+                                           alert("download error source " + error.source);
+                                           alert("download error target " + error.target);
+                                           alert("upload error code: " + error.code);
+                                           }
+                                           );
+                                 }, 
+                                 fail);
+                     }, 
+                     fail);
+ 
     }
-	/*
-	function onFileSystemSuccess(fileSystem) {
-        alert("onFileSystemSuccess: "+fileSystem.name);
+ 
+    function showLink(url){
+        alert(url);
+        var divEl = document.getElementById("ready");
+        var aElem = document.createElement("a");
+        aElem.setAttribute("target", "_blank");
+        aElem.setAttribute("href", url);
+        aElem.appendChild(document.createTextNode("Ready! Click To Open."))
+        divEl.appendChild(aElem);
+ 
     }
-
-    function onResolveSuccess(fileEntry) {
-        alert("onResolveSuccess: "+fileEntry.name);
-    }
-
+ 
+ 
     function fail(evt) {
-        alert("Error: "+evt.target.error.code);
+        alert(evt.target.error.code);
     }
-	*/
+ 
+/* When this function is called, PhoneGap has been initialized and is ready to roll */
+/* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
+see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
+for more details -jm */
+function onDeviceReady()
+{
+// do your thing!
+        downloadFile();
+}
+
+
+    
 	
     </script>
   </head>
@@ -94,6 +78,6 @@
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <p>NOVO 1.4</p>
+  <p>NOVO 1.5</p>
   </body>
 </html>
