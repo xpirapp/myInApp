@@ -40,8 +40,8 @@
     function readDataUrl(file) {
         var reader = new FileReader();
         reader.onloadend = function(evt) {
-            console.log("Read as data URL");
-            console.log(evt.target.result);
+            alert("Read as data URL");
+            alert("readDataUrl: "+evt.target.result);
         };
         reader.readAsDataURL(file);
     }
@@ -49,14 +49,14 @@
     function readAsText(file) {
         var reader = new FileReader();
         reader.onloadend = function(evt) {
-            console.log("Read as text");
-            console.log(evt.target.result);
+            alert("Read as text");
+            alert("readAsText: "+evt.target.result);
         };
         reader.readAsText(file);
     }
 
     function fail(error) {
-        console.log(error.code);
+        alert("Error: "+error.code);
     }	
     }
 	/*
@@ -79,6 +79,6 @@
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <p>NOVO 1</p>
+  <p>NOVO 1.1</p>
   </body>
 </html>
