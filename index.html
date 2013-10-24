@@ -13,12 +13,28 @@
     // Cordova is ready
     //
     function onDeviceReady() {
-         var ref = window.open('http://apache.org', '_blank', 'location=yes');
+         /*var ref = window.open('http://apache.org', '_blank', 'location=yes');
          ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
          ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
          ref.addEventListener('exit', function() { alert(event.type); });
+		 */
+		 
+		 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+        window.resolveLocalFileSystemURI("file:///pdf/poster.pdf", onResolveSuccess, fail);
+    }
+	
+	function onFileSystemSuccess(fileSystem) {
+        console.log(fileSystem.name);
     }
 
+    function onResolveSuccess(fileEntry) {
+        console.log(fileEntry.name);
+    }
+
+    function fail(evt) {
+        console.log(evt.target.error.code);
+    }
+	
     </script>
   </head>
   <body>
