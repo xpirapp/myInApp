@@ -25,6 +25,7 @@
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 		
 		function gotFS(fileSystem) {
+			alert('gotFS: '+fileSystem);
         fileSystem.root.getFile("pdf/poster.pdf", null, gotFileEntry, fail);
     }
 
@@ -79,6 +80,6 @@
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <p>NOVO 1.1</p>
+  <p>NOVO 1.2</p>
   </body>
 </html>
