@@ -19,10 +19,47 @@
          ref.addEventListener('exit', function() { alert(event.type); });
 		 */
 		 
-		 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
-        window.resolveLocalFileSystemURI("file:///pdf/poster.pdf", onResolveSuccess, fail);
+		// window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+        //window.resolveLocalFileSystemURI("file:///pdf/poster.pdf", onResolveSuccess, fail);
+		
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+		
+		function gotFS(fileSystem) {
+        fileSystem.root.getFile("pdf/poster.pdf", null, gotFileEntry, fail);
     }
-	
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.file(gotFile, fail);
+    }
+
+    function gotFile(file){
+        readDataUrl(file);
+        readAsText(file);
+    }
+
+    function readDataUrl(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            console.log("Read as data URL");
+            console.log(evt.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function readAsText(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            console.log("Read as text");
+            console.log(evt.target.result);
+        };
+        reader.readAsText(file);
+    }
+
+    function fail(error) {
+        console.log(error.code);
+    }	
+    }
+	/*
 	function onFileSystemSuccess(fileSystem) {
         alert("onFileSystemSuccess: "+fileSystem.name);
     }
@@ -34,6 +71,7 @@
     function fail(evt) {
         alert("Error: "+evt.target.error.code);
     }
+	*/
 	
     </script>
   </head>
