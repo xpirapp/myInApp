@@ -13,6 +13,7 @@
 	 
 	function onDeviceReady()
 	{
+		/*
     	 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
         window.resolveLocalFileSystemURI("file:///pdf/poster.pdf", onResolveSuccess, fail);
 		
@@ -27,7 +28,25 @@
 		function fail(evt) {
 			alert("Error: "+evt.target.error.code);
 		}
+		*/
+		
+		storeIntelligrapeLogo()
+
 	}
+	
+	function storeIntelligrapeLogo(){
+		alert('Carregando');
+		  var url = "http://www.eventoacr.com.br/pdf/poster.pdf"; // image url
+		  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+			  var imagePath = fs.root.fullPath + "/poster.pdf"; // full file path
+			  var fileTransfer = new FileTransfer();
+			  fileTransfer.download(url, imagePath, function (entry) {
+					   alert(entry.fullPath); // entry is fileEntry object
+			  }, function (error) {
+					   alert("Some error");
+			  });
+		   })
+		}
     </script>
   </head>
   <body>
@@ -35,6 +54,6 @@
   
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <p>NOVO 2.1</p>
+  <p>NOVO 2.2</p>
   </body>
 </html>
