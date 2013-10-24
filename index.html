@@ -24,15 +24,15 @@
     }
 	
 	function onFileSystemSuccess(fileSystem) {
-        alert(fileSystem.name);
+        alert("onFileSystemSuccess: "+fileSystem.name);
     }
 
     function onResolveSuccess(fileEntry) {
-        alert(fileEntry.name);
+        alert("onResolveSuccess: "+fileEntry.name);
     }
 
     function fail(evt) {
-        alert(evt.target.error.code);
+        alert("Error: "+evt.target.error.code);
     }
 	
     </script>
