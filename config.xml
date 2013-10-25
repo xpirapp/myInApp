@@ -10,12 +10,15 @@
 	<feature name="InAppBrowser">
 		<param name="ios-package" value="CDVInAppBrowser" />
 	</feature>
-	<feature name="File">
-		<param name="android-package" value="org.apache.cordova.FileUtils" />
-	</feature>
-	<feature name="FileTransfer">
-		<param name="android-package" value="org.apache.cordova.FileTransfer" />
-	</feature>
+	<feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
     <plugin name="InAppBrowser" value="CDVInAppBrowser" />
     <feature name="http://api.phonegap.com/1.0/device" />
 	
