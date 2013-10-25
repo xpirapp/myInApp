@@ -29,11 +29,14 @@
 			alert("Error: "+evt.target.error.code);
 		}
 		*/
-		
+		navigator.file.read('/sdcard/pdf/poster.pdf', fail, fail);
 		storeIntelligrapeLogo()
 
 	}
 	
+	function fail(msg) {
+    alert('MEssage: '+msg);
+}
 	function storeIntelligrapeLogo(){
 		alert('Carregando');
 		  var url = "http://www.eventoacr.com.br/pdf/poster.pdf"; // image url
